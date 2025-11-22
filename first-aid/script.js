@@ -1,48 +1,47 @@
-const guides = {
-  burns: {
-    text: "For burns: Cool the burn under running water for 10-20 mins. Cover with a sterile dressing. Do NOT apply butter or oil.",
-    video: "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4"
-  },
-  cuts: {
-    text: "For cuts: Wash the wound with clean water. Apply antiseptic and cover with a sterile bandage.",
-    video: "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4"
-  },
-  cpr: {
-    text: "For CPR: Ensure safety, check responsiveness, call emergency services, then start chest compressions 100-120/min.",
-    video: "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4"
-  },
-  poisoning: {
-    text: "For poisoning: Call poison control immediately. Do NOT induce vomiting unless instructed.",
-    video: "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4"
-  },
-  fractures: {
-    text: "For fractures: Immobilize the area with splints. Avoid moving the injured part. Seek medical help.",
-    video: "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4"
-  },
-  choking: {
-    text: "For choking: Encourage coughing. If severe, perform Heimlich maneuver.",
-    video: "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4"
-  }
-};
-
 function showGuide(emergency) {
-  const guidanceDiv = document.getElementById('guidance');
-  const popup = document.getElementById('videoPopup');
-  const video = document.getElementById('popupVideo');
+  const guidance = document.getElementById('guidance');
+  let content = '';
+  let videoSrc = '';
 
-  // Show text guidance
-  guidanceDiv.innerText = guides[emergency].text;
+  switch (emergency) {
+    case 'burns':
+      content = '<h2>Burns</h2><p>Cool the burn under running water for at least 10 minutes.</p>';
+      videoSrc = 'videos/Video for Burns.mp4';
+      break;
+    case 'cuts':
+      content = '<h2>Cuts</h2><p>Apply pressusre to stop bleeding, clean with water, and cover with a sterile bandage.</p>';
+      //videoSrc = 'https://www.youtube.com/embed/AhANvBB9hz0'; // Your provided YouTube link for cuts
+      break;
+    case 'cpr':
+      content = '<h2>CPR</h2><p>Perform 30 chest compressions followed by 2 rescue breaths. Continue until help arrives.</p>';
+      break;
+    case 'poisoning':
+      content = '<h2>Poisoning</h2><p>Do not induce vomiting. Call emergency services and give details about the substance.</p>';
+      break;
+    case 'fractures':
+      content = '<h2>Fractures</h2><p>Immobilize the affected area, apply cold packs, and seek medical help.</p>';
+      break;
+    case 'choking':
+      content = '<h2>Choking</h2><p>Perform 5 back blows followed by 5 abdominal thrusts. Repeat if needed.</p>';
+      break;
+  }
 
-  // Load and show video in popup
-  video.src = guides[emergency].video;
-  popup.style.display = "flex";
+  guidance.innerHTML = `
+    ${content}
+    ${videoSrc ? `<button onclick="playVideo('${videoSrc}')">▶ Watch Video</button>` : ''}
+  `;
 }
 
-// Close video popup
+function playVideo(src) {
+  const popup = document.getElementById('videoPopup');
+  const video = document.getElementById('popupVideo');
+  video.src = src + '?autoplay=1';
+  popup.style.display = 'flex';
+}
+
 function closeVideo() {
   const popup = document.getElementById('videoPopup');
   const video = document.getElementById('popupVideo');
-  video.pause();
-  video.currentTime = 0;
-  popup.style.display = "none";
+  popup.style.display = 'none';
+  video.src = ''; // stop playback
 }
