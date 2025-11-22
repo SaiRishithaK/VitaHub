@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book a Medical Test</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Book a Medical Test</h1>
+
+    <label for="testName">Select Test:</label>
+    <select id="testName">
+      <option value="" disabled selected>-- Select a Test --</option>
+      <option value="Blood Test">Blood Test</option>
+      <option value="X-Ray">X-Ray</option>
+      <option value="MRI">MRI</option>
+      <option value="Urine Test">Urine Test</option>
+      <option value="ECG">ECG</option>
+      <option value="Ultrasound">Ultrasound</option>
+      <option value="COVID-19 Test">COVID-19 Test</option>
+    </select>
+
+    <label for="date">Select Date:</label>
+    <input type="date" id="date">
+
+    <label for="timeSlot">Select Time Slot:</label>
+    <select id="timeSlot">
+      <option value="" disabled selected>-- Select a Time Slot --</option>
+      <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM</option>
+      <option value="11:00 AM - 12:00 PM">11:00 AM - 12:00 PM</option>
+      <option value="12:00 PM - 01:00 PM">12:00 PM - 01:00 PM</option>
+      <option value="01:00 PM - 02:00 PM">01:00 PM - 02:00 PM</option>
+    </select>
+
+    <label for="location">Detect Location:</label>
+    <input type="text" id="location" placeholder="Click button to detect">
+    <button onclick="detectLocation()">📍 Detect My Location</button>
+
+    <label for="centres">Nearby Diagnostic Centres:</label>
+    <select id="centres">
+      <option value="" disabled selected>-- Centres Near You --</option>
+    </select>
+
+    <label for="userName">Your Name:</label>
+    <input type="text" id="userName" placeholder="Enter your name">
+
+    <button onclick="bookTest()">Book Now</button>
+
+    <div id="confirmation"></div>
+  </div>
+
+  <script>
+    function detectLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(success, error);
+      } else {
+        alert("Geolocation not supported on this browser.");
+      }
+    }
+
+    function success(position) {
+      const lat = position.coords.latitude.toFixed(4);
+      const lon = position.coords.longitude.toFixed(4);
+      document.getElementById("location").value = `Latitude: ${lat}, Longitude: ${lon}`;
+      
+      // Sample nearby centres (you can change these)
+      const centres = [
+        "VitaLab Diagnostics - 0.4 km",
+        "Apollo Health Checkup - 1.2 km",
+        "Medicare Pathology - 2.1 km",
+        "CityCare Labs - 3.0 km"
+      ];
+      const select = document.getElementById("centres");
+      select.innerHTML = `<option value="" disabled selected>-- Centres Near You --</option>`;
+      centres.forEach(name => {
+        const opt = document.createElement("option");
+        opt.value = name;
+        opt.textContent = name;
+        select.appendChild(opt);
+      });
+    }
+
+    function error() {
+      alert("Unable to retrieve your location.");
+    }
+
+    function bookTest() {
+      const test = document.getElementById("testName").value;
+      const date = document.getElementById("date").value;
+      const time = document.getElementById("timeSlot").value;
+      const user = document.getElementById("userName").value;
+      const centre = document.getElementById("centres").value;
+
+      if (!test || !date || !time || !user || !centre) {
+        alert("Please fill in all fields!");
+        return;
+      }
+
+      const confirmation = document.getElementById("confirmation");
+      confirmation.innerHTML = `
+        <h3>Booking Confirmed ✅</h3>
+        <p><strong>Name:</strong> ${user}</p>
+        <p><strong>Test:</strong> ${test}</p>
+        <p><strong>Date:</strong> ${date}</p>
+        <p><strong>Time:</strong> ${time}</p>
+        <p><strong>Centre:</strong> ${centre}</p>
+      `;
+    }
+  </script>
+</body>
+</html>
