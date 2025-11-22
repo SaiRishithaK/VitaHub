@@ -83,6 +83,7 @@ export default function BloodDonation() {
   return (
     <div className="p-6 max-w-6xl mx-auto">
       <ToastContainer />
+      <h1 className="text-3xl font-extrabold text-gray-800 mb-4">Blood Donation</h1>
 
       {/* Donor Registration Form */}
       <BloodDonationForm addDonor={addDonor} />
