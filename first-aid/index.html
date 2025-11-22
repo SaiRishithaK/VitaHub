@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>First Aid Guidance</title>
+  <script src="script.js"></script>
+
+  <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f8f9fa;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+
+    .buttons button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      background-color: #007bff;
+      color: white;
+      transition: background-color 0.3s;
+    }
+
+    .buttons button:hover {
+      background-color: #0056b3;
+    }
+
+    #guidance {
+      margin-top: 30px;
+      font-size: 18px;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .popup iframe {
+      width: 80%;
+      height: 450px;
+      border-radius: 10px;
+    }
+
+    .popup .close {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 30px;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>First Aid Guidance</h1>
+    <p>Select an emergency:</p>
+
+    <div class="buttons">
+      <button onclick="showGuide('burns')">Burns</button>
+      <button onclick="showGuide('cuts')">Cuts</button>
+      <button onclick="showGuide('cpr')">CPR</button>
+      <button onclick="showGuide('poisoning')">Poisoning</button>
+      <button onclick="showGuide('fractures')">Fractures</button>
+      <button onclick="showGuide('choking')">Choking</button>
+    </div>
+
+    <div id="guidance"></div>
+  </div>
+
+  <!-- Video Popup -->
+  <div id="videoPopup" class="popup">
+    <span class="close" onclick="closeVideo()">&times;</span>
+    <video 
+  id="popupVideo"
+  controls 
+  autoplay
+  style="max-width: 90%; max-height: 80%; border-radius: 10px;">
+</video>
+  </div>
+
+  <script>
+    function showGuide(emergency) {
+      const guidance = document.getElementById('guidance');
+      let content = '';
+      let videoSrc = '';
+
+      switch (emergency) {
+        case 'burns':
+          content = '<h2>Burns</h2><p>Cool the burn under running water for at least 10 minutes. Do not apply creams or ice directly.</p>';
+          videoSrc='videos/Video for Burns.mp4'
+          break;
+        case 'cuts':
+          content = '<h2>Cuts</h2><p>Apply pressure to stop bleeding, clean with water, and cover with a sterile bandage.</p>';
+          videoSrc='videos/Video for Cuts.mp4'
+          break;
+        case 'cpr':
+          content = '<h2>CPR</h2><p>Perform 30 chest compressions followed by 2 rescue breaths. Continue until help arrives.</p>';
+          videoSrc='videos/Video for CPR.mp4'
+          break;
+        case 'poisoning':
+          content = '<h2>Poisoning</h2><p>Do not induce vomiting. Call emergency services and give details about the substance.</p>';
+          videoSrc='videos/Video for Poisoning.mp4'
+          break;
+        case 'fractures':
+          content = '<h2>Fractures</h2><p>Immobilize the affected area, apply cold packs, and seek medical help.</p>';
+          videoSrc='videos/Video for Fracture.mp4'
+          break;
+        case 'choking':
+          content = '<h2>Choking</h2><p>Perform 5 back blows followed by 5 abdominal thrusts. Repeat if needed.</p>';
+          videoSrc='videos/Video for Choking.mp4'
+          break;
+      }
+
+      guidance.innerHTML = `
+        ${content}
+        ${videoSrc ? `<button onclick="playVideo('${videoSrc}')">▶ Watch Video</button>` : ''}
+      `;
+    }
+
+    function playVideo(src) {
+      const popup = document.getElementById('videoPopup');
+      const video = document.getElementById('popupVideo');
+       video.src = src; // local video file
+  popup.style.display = 'flex';
+  video.play();
+    }
+
+    function closeVideo() {
+      const popup = document.getElementById('videoPopup');
+      const video = document.getElementById('popupVideo');
+      popup.style.display = 'none';
+      video.pause();
+  video.currentTime = 0;
+    }
+  </script>
+</body>
+</html>

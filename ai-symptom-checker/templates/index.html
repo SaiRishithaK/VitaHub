@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Symptom Checker</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>AI Symptom Checker</h1>
+        <form action="/check" method="POST">
+            <label>Enter your symptoms:</label>
+            <textarea name="symptoms" required></textarea>
+            
+            <label>For how many days?</label>
+            <input type="number" name="days" min="0" required>
+            
+            <label>Your Age:</label>
+            <input type="number" name="age" min="1" required>
+            
+            <button type="submit">Check</button>
+        </form>
+
+        {% if result %}
+            <div class="result">
+                <h2>Results</h2>
+                <p><strong>Triage:</strong> {{ result.triage }}</p>
+                <p><strong>Reason:</strong> {{ result.reason }}</p>
+                <p><strong>Advice:</strong> {{ result.advice }}</p>
+                <p><strong>AI Explanation:</strong> {{ result.ai_explanation }}</p>
+            </div>
+        {% endif %}
+
+        {% if error %}
+            <div class="error">
+                <p>{{ error }}</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

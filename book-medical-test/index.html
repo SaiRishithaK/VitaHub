@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Medical Tests</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Book a Medical Test</h1>
+
+    <label for="testName">Select Test:</label>
+    <select id="testName">
+      <option value="" disabled selected>-- Select a Test --</option>
+      <option value="Blood Test">Blood Test</option>
+      <option value="X-Ray">X-Ray</option>
+      <option value="MRI">MRI</option>
+      <option value="Urine Test">Urine Test</option>
+      <option value="ECG">ECG</option>
+      <option value="Ultrasound">Ultrasound</option>
+      <option value="COVID-19 Test">COVID-19 Test</option>
+    </select>
+
+    <label for="date">Select Date:</label>
+    <input type="date" id="date">
+
+    <label for="timeSlot">Select Time Slot:</label>
+    <select id="timeSlot">
+      <option value="" disabled selected>-- Select a Time Slot --</option>
+      <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM</option>
+      <option value="11:00 AM - 12:00 PM">11:00 AM - 12:00 PM</option>
+      <option value="12:00 PM - 01:00 PM">12:00 PM - 01:00 PM</option>
+      <option value="01:00 PM - 02:00 PM">01:00 PM - 02:00 PM</option>
+    </select>
+
+    <label for="location">Location:</label>
+    <input type="text" id="location" value="VitaHub Clinic, Block A" readonly>
+
+    <label for="userName">Your Name:</label>
+    <input type="text" id="userName" placeholder="Enter your name">
+
+    <button onclick="bookTest()">Book Now</button>
+
+    <div id="confirmation"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
