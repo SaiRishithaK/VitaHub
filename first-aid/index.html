@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>First Aid Guidance</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>First Aid Guidance</h1>
+    <p>Select an emergency:</p>
+    
+    <div class="buttons">
+      <button onclick="showGuide('burns')">Burns</button>
+      <button onclick="showGuide('cuts')">Cuts</button>
+      <button onclick="showGuide('cpr')">CPR</button>
+      <button onclick="showGuide('poisoning')">Poisoning</button>
+      <button onclick="showGuide('fractures')">Fractures</button>
+      <button onclick="showGuide('choking')">Choking</button>
+    </div>
+
+    <div id="guidance"></div>
+  </div>
+
+  <!-- Video Lightbox -->
+  <div id="videoPopup" class="popup">
+    <span class="close" onclick="closeVideo()">&times;</span>
+    <video id="popupVideo" width="100%" controls autoplay></video>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
